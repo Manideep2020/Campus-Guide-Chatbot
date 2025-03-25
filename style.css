@@ -1,0 +1,406 @@
+/* Define primary colors and transition timing for consistent styling */
+:root {
+    --primary: #007aff; /* Primary color for user messages and buttons */
+    --primary-dark: #005bb5; /* Darker shade for hover effects */
+    --map-btn: #0b7dda; /* Button color for map actions */
+    --map-btn-hover: #0a6ac1; /* Hover color for map buttons */
+    --bg-dark: #121212; /* Background color for the page */
+    --chat-bg: #1e1e1e; /* Background color for chat container */
+    --input-bg: #2c2c2c; /* Background color for input area */
+    --text-light: #fff; /* Light text color for dark backgrounds */
+    --text-dark: #333; /* Dark text color for light backgrounds */
+    --bot-msg: #d4edda; /* Background color for bot messages */
+    --user-msg: #007aff; /* Background color for user messages */
+    --trans: 0.3s; /* Transition duration for animations */
+}
+
+/* Set base font, background, and layout for the page */
+body {
+    font-family: 'Inter', sans-serif; /* Modern font */
+    background: var(--bg-dark); /* Dark page background */
+    color: var(--text-light); /* Light text for contrast */
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add padding around content */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Full viewport height */
+    line-height: 1.5; /* Improve readability */
+}
+
+/* Style header with logo and title */
+header {
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center vertically */
+    gap: 10px; /* Space between logo and title */
+    margin-bottom: 20px; /* Space below header */
+    width: 100%; /* Full width */
+    max-width: 800px; /* Limit width */
+    padding: 10px; /* Inner padding */
+}
+
+header img {
+    width: 50px; /* Logo width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Main chat container */
+.chat-container {
+    width: 100%; /* Full width */
+    max-width: 800px; /* Limit width */
+    min-height: 50vh; /* Minimum height */
+    max-height: 75vh; /* Maximum height */
+    background: var(--chat-bg); /* Chat background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Subtle shadow */
+    padding: 20px; /* Inner padding */
+    overflow-y: auto; /* Vertical scroll */
+    flex-grow: 1; /* Fill available space */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack vertically */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    position: relative; /* For absolute children */
+}
+
+.chat-box {
+    flex-grow: 1; /* Fill space */
+    overflow-y: auto; /* Vertical scroll */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack messages */
+    gap: 15px; /* Space between messages */
+}
+
+/* Map container, initially hidden */
+.map-container {
+    position: absolute; /* Over chat container */
+    top: 0; left: 0; /* Align to top-left */
+    width: 100%; height: 100%; /* Full size */
+    background: var(--chat-bg); /* Map background */
+    z-index: 10; /* Above other elements */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack vertically */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Shadow */
+    animation: fadeIn 0.3s; /* Fade-in effect */
+}
+
+.map-header {
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space items */
+    align-items: center; /* Center vertically */
+    padding: 10px 15px; /* Inner padding */
+    background: var(--input-bg); /* Header background */
+}
+
+.map-header h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 18px; /* Title size */
+}
+
+.close-button {
+    background: transparent; /* No background */
+    border: none; /* No border */
+    color: var(--text-light); /* Light text */
+    cursor: pointer; /* Pointer cursor */
+    padding: 5px; /* Inner padding */
+    border-radius: 50%; /* Circular shape */
+    display: flex; /* Flexbox layout */
+    align-items: center; justify-content: center; /* Center icon */
+    transition: all var(--trans); /* Smooth hover */
+}
+
+.close-button:hover {
+    background: rgba(255,255,255,0.1); /* Hover background */
+    transform: scale(1.1); /* Enlarge on hover */
+}
+
+/* Base style for chat messages */
+.message {
+    display: flex; /* Flexbox layout */
+    align-items: flex-start; /* Align to start */
+    margin: 0; /* No margin */
+    animation: messageAppear 0.3s forwards; /* Appear animation */
+    opacity: 0; transform: translateY(10px); /* Start position */
+}
+
+.bot {justify-content: flex-start;} /* Bot messages left */
+.user {justify-content: flex-end; align-self: flex-end;} /* User messages right */
+
+.avatar {
+    width: 35px; height: 35px; /* Avatar size */
+    border-radius: 50%; /* Circular shape */
+    margin: 0 10px; /* Space around */
+    object-fit: cover; /* Cover area */
+    transition: transform var(--trans); /* Smooth hover */
+}
+
+.avatar:hover {transform: scale(1.1);} /* Enlarge on hover */
+
+.message div {
+    position: relative; /* For absolute children */
+    max-width: 75%; /* Limit width */
+}
+
+.message span {
+    padding: 12px 18px; /* Inner padding */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+    display: inline-block; /* Inline block */
+    transition: transform var(--trans); /* Smooth hover */
+}
+
+.bot span {
+    background: var(--bot-msg); /* Bot message background */
+    color: var(--text-dark); /* Dark text */
+    border-radius: 20px 20px 20px 0; /* Speech bubble */
+}
+
+.user span {
+    background: var(--user-msg); /* User message background */
+    color: var(--text-light); /* Light text */
+    border-radius: 20px 20px 0 20px; /* Speech bubble */
+}
+
+.bot span:hover {transform: translateX(5px);} /* Move right on hover */
+.user span:hover {transform: translateX(-5px);} /* Move left on hover */
+
+/* Input area container */
+.input-container {
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center vertically */
+    width: 100%; max-width: 800px; /* Full width, limited */
+    padding: 10px; /* Inner padding */
+    background: var(--input-bg); /* Input background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Shadow */
+    margin-top: 10px; /* Space above */
+    transition: transform var(--trans); /* Smooth focus */
+}
+
+.input-container:focus-within {
+    transform: translateY(-2px); /* Move up on focus */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4); /* Enhanced shadow */
+}
+
+#user-input {
+    flex-grow: 1; /* Fill space */
+    padding: 10px; /* Inner padding */
+    border: none; outline: none; /* No border or outline */
+    font-size: 16px; /* Text size */
+    background: transparent; /* Transparent */
+    color: var(--text-light); /* Light text */
+}
+
+#user-input::placeholder {color: rgba(255,255,255,0.6);} /* Placeholder color */
+
+#attach-button {
+    background: transparent; /* No background */
+    color: var(--text-light); /* Light icon */
+    border: none; /* No border */
+    padding: 8px; /* Inner padding */
+    cursor: pointer; /* Pointer cursor */
+    opacity: 0.7; /* Slightly transparent */
+    margin-right: 5px; /* Space right */
+    transition: all var(--trans); /* Smooth hover */
+}
+
+#attach-button:hover {
+    opacity: 1; /* Fully opaque */
+    transform: scale(1.1); /* Enlarge on hover */
+}
+
+#send-button {
+    background: var(--primary); /* Button color */
+    color: var(--text-light); /* Light icon */
+    border: none; /* No border */
+    padding: 10px 12px; /* Inner padding */
+    border-radius: 50%; /* Circular shape */
+    cursor: pointer; /* Pointer cursor */
+    display: flex; /* Flexbox layout */
+    align-items: center; justify-content: center; /* Center icon */
+    transition: all var(--trans); /* Smooth hover */
+}
+
+#send-button:hover {
+    background: var(--primary-dark); /* Darker on hover */
+    transform: scale(1.05); /* Enlarge on hover */
+}
+
+#send-button:active {transform: scale(0.95);} /* Shrink on click */
+
+/* Quick action buttons container */
+.quick-actions {
+    margin-top: 10px; /* Space above */
+    display: flex; /* Flexbox layout */
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap; /* Wrap buttons */
+    justify-content: center; /* Center align */
+    width: 100%; max-width: 800px; /* Full width, limited */
+}
+
+.quick-actions button {
+    padding: 8px 15px; /* Inner padding */
+    background: var(--primary); /* Button color */
+    color: var(--text-light); /* Light text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-weight: 500; /* Medium weight */
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center icon/text */
+    gap: 5px; /* Space between icon/text */
+    transition: all var(--trans); /* Smooth hover */
+}
+
+#show-map-btn, #find-way-btn {background: var(--map-btn);} /* Map button color */
+
+.quick-actions button:hover {
+    background: var(--primary-dark); /* Darker on hover */
+    transform: translateY(-2px); /* Move up */
+}
+
+#show-map-btn:hover, #find-way-btn:hover {background: var(--map-btn-hover);} /* Map hover */
+
+.quick-actions button:active {transform: translateY(0);} /* Reset on click */
+
+.quick-actions button .material-symbols-outlined {font-size: 18px;} /* Icon size */
+
+/* Typing indicator style */
+.typing-indicator {
+    display: flex; /* Flexbox layout */
+    padding: 12px 18px; /* Inner padding */
+    background: var(--bot-msg); /* Background */
+    border-radius: 20px 20px 20px 0; /* Speech bubble */
+    width: fit-content; /* Fit content */
+    align-items: center; /* Center dots */
+    margin-left: 55px; /* Space left */
+}
+
+.typing-indicator span {
+    height: 8px; width: 8px; /* Dot size */
+    background: var(--text-dark); /* Dot color */
+    border-radius: 50%; /* Circular shape */
+    display: inline-block; /* Inline block */
+    margin: 0 2px; /* Space between dots */
+    opacity: 0.4; /* Slightly transparent */
+}
+
+.typing-indicator span:nth-child(1) {animation: blink 1s infinite 0.1s;} /* 1st dot blink */
+.typing-indicator span:nth-child(2) {animation: blink 1s infinite 0.3s;} /* 2nd dot blink */
+.typing-indicator span:nth-child(3) {animation: blink 1s infinite 0.5s;} /* 3rd dot blink */
+
+/* Attachment preview style */
+.attachment-preview {
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center align */
+    background: rgba(255,255,255,0.1); /* Light background */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Inner padding */
+    margin: 5px 0; /* Space above/below */
+    max-width: 100%; /* Full width */
+}
+
+.attachment-preview img {
+    width: 20px; height: 20px; /* Icon size */
+    margin-right: 8px; /* Space right */
+}
+
+.attachment-preview .file-name {
+    flex-grow: 1; /* Fill space */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Ellipsis for overflow */
+    white-space: nowrap; /* No wrap */
+    font-size: 14px; /* Text size */
+}
+
+.attachment-preview .remove-file {
+    background: transparent; /* No background */
+    border: none; /* No border */
+    color: var(--text-light); /* Light icon */
+    cursor: pointer; /* Pointer cursor */
+    opacity: 0.7; /* Slightly transparent */
+}
+
+.attachment-preview .remove-file:hover {opacity: 1;} /* Fully opaque on hover */
+
+/* Utility classes */
+.hidden {display: none;} /* Hide elements */
+
+.loading-indicator {
+    font-size: 14px; /* Text size */
+    opacity: 0.8; /* Slightly transparent */
+}
+
+/* Permission modal overlay */
+.permission-modal {
+    position: fixed; /* Fixed over page */
+    top: 0; left: 0; /* Top-left align */
+    width: 100%; height: 100%; /* Full size */
+    background: rgba(0,0,0,0.7); /* Dark overlay */
+    display: flex; /* Flexbox layout */
+    justify-content: center; align-items: center; /* Center modal */
+    z-index: 100; /* Above all */
+    animation: fadeIn 0.3s; /* Fade-in effect */
+}
+
+.permission-content {
+    background: var(--chat-bg); /* Modal background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Inner padding */
+    max-width: 500px; /* Limit width */
+    width: 90%; /* Responsive width */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); /* Shadow */
+}
+
+.permission-content h3 {margin-top: 0;} /* No top margin */
+.permission-content p {margin-bottom: 20px;} /* Space below */
+
+.permission-buttons {
+    display: flex; /* Flexbox layout */
+    justify-content: flex-end; /* Align right */
+    gap: 10px; /* Space between buttons */
+}
+
+.permission-buttons button {
+    padding: 8px 15px; /* Inner padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: all var(--trans); /* Smooth hover */
+}
+
+.deny-button {background: #555; color: var(--text-light);} /* Deny style */
+.allow-button {background: var(--primary); color: var(--text-light);} /* Allow style */
+
+.permission-buttons button:hover {transform: translateY(-2px);} /* Move up on hover */
+
+/* Animations */
+@keyframes messageAppear {
+    to {opacity: 1; transform: translateY(0);} /* Message appear */
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;} to {opacity: 1;} /* Fade-in effect */
+}
+
+@keyframes blink {
+    50% {opacity: 1;} /* Blinking effect */
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {width: 8px;} /* Scrollbar width */
+::-webkit-scrollbar-track {background: var(--chat-bg);} /* Track */
+::-webkit-scrollbar-thumb {background: var(--primary); border-radius: 4px;} /* Thumb */
+::-webkit-scrollbar-thumb:hover {background: var(--primary-dark);} /* Thumb hover */
+
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+    .chat-container, .input-container, .quick-actions {max-width: 100%;} /* Full width */
+    .input-container {flex-wrap: wrap; gap: 10px;} /* Wrap inputs */
+    .quick-actions {flex-direction: column; align-items: center; width: 100%;} /* Stack buttons */
+    .quick-actions button {width: 100%; max-width: 300px;} /* Full button width */
+    body {padding: 10px;} /* Less padding */
+    .message span {padding: 8px 12px; font-size: 14px;} /* Smaller messages */
+    .avatar {width: 30px; height: 30px;} /* Smaller avatar */
+    .map-container iframe {height: 250px;} /* Smaller map */
+}

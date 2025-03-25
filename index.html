@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GRIET Campus Guide Chatbot - Your virtual assistant for campus information">
+    <title>Campus Guide Chatbot</title>
+    <link rel="icon" type="image/png" href="griet-logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="griet-logo.png" alt="GRIET Logo" onerror="this.src='placeholder-logo.png'">
+        <h1>Campus Guide Chatbot</h1>
+    </header>
+
+    <main class="chat-container">
+        <!-- Map container - Initially hidden -->
+        <div id="map-container" class="map-container hidden">
+            <div class="map-header">
+                <h3>Campus Map</h3>
+                <button id="close-map" class="close-button" aria-label="Close map">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <iframe 
+                id="campus-map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.6915032618673!2d78.43132701469895!3d17.484667088021477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9b0e1b9a75d7%3A0x5e33a9e04f9c892!2sGokaraju%20Rangaraju%20Institute%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1622735176902!5m2!1sen!2sin"
+                width="100%" 
+                height="350" 
+                style="border:0;" 
+                allowfullscreen 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="chat-box" role="log" aria-label="Chat messages">
+            <!-- Example Bot Message -->
+            <div class="message bot">
+                <img src="griet-logo.png" class="avatar" alt="Bot Avatar" onerror="this.src='placeholder-avatar.png'">
+                <div>
+                    <span>
+                        Hi! I'm your GRIET campus guide assistant. How can I help you today?
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Example User Message -->
+            <div class="message user">
+                <img src="griet-logo.png" class="avatar" alt="User Avatar" onerror="this.src='placeholder-avatar.png'">
+                <div>
+                    <span>
+                        Hello!
+                    </span>
+                </div>
+            </div>
+
+            <!-- Typing indicator (hidden by default) -->
+            <div class="typing-indicator hidden">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- File attachment preview area (initially empty) -->
+        <div id="attachment-area"></div>
+    </main>
+
+    <div class="input-container">
+        <!-- Attachment button with pin icon -->
+        <button id="attach-button" aria-label="Attach file">
+            <span class="material-symbols-outlined">attach_file</span>
+        </button>
+        
+        <!-- Hidden file input element, triggered by attach button -->
+        <input type="file" id="file-input" class="hidden" aria-label="Upload file">
+        
+        <!-- Text input field -->
+        <input type="text" id="user-input" placeholder="Ask me anything..." aria-label="Type your message">
+        
+        <!-- Send button -->
+        <button id="send-button" aria-label="Send message">
+            <span class="material-symbols-outlined">send</span>
+            <span class="loading-indicator hidden">Sending...</span>
+        </button>
+    </div>
+
+    <section class="quick-actions" role="toolbar" aria-label="Quick actions">
+        <button id="show-map-btn" aria-label="Show campus map">
+            <span class="material-symbols-outlined">map</span> Campus Map
+        </button>
+        <button id="find-way-btn" aria-label="Find my way to campus">
+            <span class="material-symbols-outlined">navigation</span> Find My Way
+        </button>
+        <button aria-label="Get directions">
+            <span class="material-symbols-outlined">directions</span> Directions
+        </button>
+        <button aria-label="View faculty information">
+            <span class="material-symbols-outlined">person</span> Faculty Info
+        </button>
+        <button aria-label="Check room availability">
+            <span class="material-symbols-outlined">meeting_room</span> Room Availability
+        </button>
+        <button aria-label="View campus events">
+            <span class="material-symbols-outlined">event</span> Events
+        </button>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

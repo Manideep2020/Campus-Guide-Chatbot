@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Guide Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Importing Material Icons for send button and dark mode toggle -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Dark Mode Toggle Button -->
+    <!--<button id="dark-mode-toggle">
+        <span class="material-symbols-outlined">dark_mode</span>
+    </button> -->
+
+    <!-- Chatbot Title -->
+    <div class="chatbot-header">
+        <img src="griet logo.png" alt="GRIET Logo" class="griet-logo">
+        <h1>Campus Guide Chatbot</h1>
+    </div>
+
+    <!-- Chat Container (Holds all messages) -->
+    <div class="chat-container">
+        
+        <!-- Chat Box (User & Bot messages will appear here) -->
+        <div class="chat-box" id="chat-box">
+            <!-- Example User Message -->
+            <div class="message user">
+                <img src="user.png" class="avatar" alt="User">
+                <div>
+                    <span>Hello!</span>
+                    <span class="timestamp">10:30 AM</span>
+                </div>
+            </div>
+
+            <!-- Example Bot Message -->
+            <div class="message bot">
+                <img src="griet logo.png" class="avatar" alt="Bot">
+                <div>
+                    <span>Hi! How can I help you today?</span>
+                    <span class="timestamp">10:31 AM</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator (Appears when bot is responding) -->
+        <div id="typing-indicator" class="hidden">
+            Bot is typing...
+        </div>
+
+    </div>
+
+    <!-- Input Box, File Upload & Send Button -->
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Ask me anything..." />
+
+        <!-- File Upload Input -->
+        <input type="file" id="file-upload" accept="image/*, .pdf, .doc, .docx"/>
+        
+        <button id="send-button">
+            <span class="material-symbols-outlined">arrow_upward</span>
+        </button>        
+    </div>
+
+    <!-- Quick Action Buttons for Common Queries -->
+    <div class="quick-actions">
+        <button>Directions</button>
+        <button>Faculty Info</button>
+        <button>Room Availability</button>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="app.js"></script>
+
+</body>
+</html>
